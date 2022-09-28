@@ -85,13 +85,17 @@ def animateMatchTemplate(img:np.ndarray, extracted_img:np.ndarray, row_step:int=
     return anim
             
 if __name__ == '__main__':
+    from mycommon import myplot
+    rc_params = myplot.rc_params
+    rc_params['font']['size'] = 18
+    for dim in ('xtick', 'ytick'): rc_params[dim]['major.size'] = 0
+    for key, value in rc_params.items(): plt.rc(key, **value)
     file_path = os.path.join(__file__, '..', 'dropkick.jpg')
     img = cv2.imread(file_path)
     extractor = ImageExtractor(img); extractor.mainloop()
     extracted_img = extractor.result
     anim = animateMatchTemplate(img, extracted_img, row_step=15, col_step=15)
     plt.show()
-
 
 
 
